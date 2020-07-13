@@ -22,7 +22,7 @@ class game {
         this.level = 0;
         this.phaseQueue = new Array();
         this.generatePhaseQueue();
-        this.phaseTime = 5;
+        this.phaseTime = 10;
         this.prevTime = Date.now();
         this.targetsPerPhase = 3;
         this.targetSize = 150;
