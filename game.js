@@ -22,10 +22,10 @@ class game {
         this.level = 0;
         this.phaseQueue = new Array();
         this.generatePhaseQueue();
-        this.phaseTime = 10;
+        this.phaseTime = 9;
         this.prevTime = Date.now();
         this.targetsPerPhase = 3;
-        this.targetSize = 150;
+        this.targetSize = 125;
         this.targetQueue = new Array();
         this.generateTargetQueue();
         this.currTarget = new target({x: Math.random() * width, y: Math.random() * height},
@@ -34,8 +34,10 @@ class game {
     }
 
     update() {
+	console.log(this.targetQueue.length);
         let now = Date.now();
-        this.score = (now - this.startTime) / 10000;
+        this.score = ((now - this.startTime)/10) | 0;
+
         if (this.lives <= 0) {
             this.end();
         }
@@ -45,15 +47,14 @@ class game {
             this.phase = this.phaseQueue.shift();
             this.cursor = new this.phase.cursor(this.cursor.position, 1.0);
             //console.log(this.phase.name);
-
+            this.level++;
+            this.phaseTime -= Math.log1p(this.level) / 2;
+	    console.log("level:", this.level);
             if (this.phaseQueue.length <= 0) {
                 //this.phaseTime /= 3;
                 this.generatePhaseQueue();
-                this.level++;
-                this.phaseTime -= Math.log1p(this.level) / 2;
             }
 
-            this.generateTargetQueue();
             this.prevTime = Date.now();
         }
 
@@ -62,7 +63,11 @@ class game {
             if (!this.currTarget.dead) {
                 this.lives--;
             }
+	    this.currTarget.dead = true;
             this.currTarget = this.targetQueue.shift();
+	    if (this.targetQueue.length <= 0) {
+		this.generateTargetQueue();
+	    }
         }
         this.cursor.update();
     }
@@ -112,8 +117,10 @@ class game {
     }
 
     generateTargetQueue() {
+	console.log("generating target queue", this.phaseTime/this.targetsPerPhase);
         for (let i = 0; i < this.targetsPerPhase; i++) {
-            this.targetQueue.push(new target({x: Math.random() * width, y: Math.random() * height},
+            this.targetQueue.push(new target({x: Math.random() * width,
+					      y: Math.random() * height},
                                   this.phaseTime / this.targetsPerPhase,
                                   this.targetSize));
         }
