@@ -18,7 +18,7 @@ class normalCursor {
         stroke(pallete[0]);
         circle(this.position.x, this.position.y, 45);
         strokeWeight(2);
-        point(this.position.x, this.position.y);  
+        point(this.position.x, this.position.y);
     }
 }
 

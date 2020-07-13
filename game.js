@@ -1,11 +1,17 @@
 class game {
     static phases = {
-        NORMAL : {cursor : normalCursor, velocity : 1.0, color : [100, 100, 100], remainedTime : 0, name : "normal"},
-        HSENS  : {cursor : hSensCursor,  velocity : 1.0, color : [ 60, 120,  74], remainedTime : 0, name : "hsens"},
-        LSENS  : {cursor : lSensCursor,  velocity : 1.0, color : [143,  93,  40], remainedTime : 0, name : "lsens"},
-        XFLIP  : {cursor : xFlipCursor,  velocity : 1.0, color : [143,  40,  40], remainedTime : 0, name : "xflip"},
-        YFLIP  : {cursor : yFlipCursor,  velocity : 1.0, color : [ 33, 130, 125], remainedTime : 0, name : "yflip"},
-        XYFLIP : {cursor : xyFlipCursor, velocity : 1.0, color : [ 67,  33, 130], remainedTime : 0, name : "xyflip"},
+        NORMAL : {cursor : normalCursor, velocity : 1.0,
+		  color : [100, 100, 100], remainedTime : 0, name : "normal"},
+        HSENS  : {cursor : hSensCursor,  velocity : 1.0,
+		  color : [ 60, 120,  74], remainedTime : 0, name : "hsens"},
+        LSENS  : {cursor : lSensCursor,  velocity : 1.0,
+		  color : [143,  93,  40], remainedTime : 0, name : "lsens"},
+        XFLIP  : {cursor : xFlipCursor,  velocity : 1.0,
+		  color : [143,  40,  40], remainedTime : 0, name : "xflip"},
+        YFLIP  : {cursor : yFlipCursor,  velocity : 1.0,
+		  color : [ 33, 130, 125], remainedTime : 0, name : "yflip"},
+        XYFLIP : {cursor : xyFlipCursor, velocity : 1.0,
+		  color : [ 67,  33, 130], remainedTime : 0, name : "xyflip"},
     }
     constructor() {
         this.maxLives = 3;
@@ -78,7 +84,8 @@ class game {
     }
 
     mouseClicked() {
-        let d = dist(this.cursor.position.x, this.cursor.position.y, this.currTarget.position.x, this.currTarget.position.y);
+        let d = dist(this.cursor.position.x, this.cursor.position.y,
+		     this.currTarget.position.x, this.currTarget.position.y);
         if (d < this.currTarget.size) {
             // cursor inside  
             this.currTarget.dead = true;
